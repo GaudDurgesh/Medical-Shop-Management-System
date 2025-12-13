@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Backup & Data Management</title>
+    <link rel="stylesheet" href="backup.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Backup & Data Management</h1>
+        <div class="header-controls">
+            <input type="text" id="search" placeholder="Search backups...">
+            <button class="btn" id="addBackupBtn">Create Backup</button>
+        </div>
+    </header>
+
+    <table id="backupTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Backup Name</th>
+                <th>Type</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Backups will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal" id="backupModal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>Create New Backup</h2>
+            <form id="backupForm">
+                <label for="backupName">Backup Name</label>
+                <input type="text" id="backupName" required placeholder="Enter backup name">
+
+                <label for="backupType">Backup Type</label>
+                <select id="backupType" required>
+                    <option value="">Select Type</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select>
+
+                <button type="submit" class="btn">Create Backup</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="backup.js"></script>
+</body>
+</html>

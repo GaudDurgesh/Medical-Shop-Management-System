@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Medical Shop - Settings</title>
+  <link rel="stylesheet" href="setting.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <header>⚙️ Admin Settings</header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="settings-sidebar">
+      <div class="tab-buttons">
+        <button class="active" data-tab="profile">Profile & Account</button>
+        <button id="store-setting">Store Settings</button>
+        <button id="inventory-setting" data-tab="inventory">Inventory Settings</button>
+        <button id="sales-bill" data-tab="sales">Sales</button>
+        <button id="notify" data-tab="notifications">Notifications</button>
+        <button id="backup-data" data-tab="backup">Backup & Data</button>
+        <button id="security" data-tab="security">Security</button>
+        <button id="support&help" data-tab="Developer">Support / Help</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="settings-content">
+
+      <!-- Profile & Account -->
+      <div class="tab-content active" id="profile">
+        <h2>Profile & Account</h2>
+        <div class="profile-display">
+          <div>
+            <p><strong>Shop Name:</strong> <span id="shopName"></span></p>
+            <p><strong>Admin Name:</strong> <span id="adminName"></span></p>
+            <p><strong>Email:</strong> <span id="adminEmail"></span></p>
+            <p><strong>Opening Date:</strong> <span id="openingDate"></span></p>
+            <p><strong>Birthdate:</strong> <span id="birthDate"></span></p>
+            <p><strong>Contact:</strong> <span id="contact"></span></p>
+          </div>
+          <button id="edit-profile-btn" class="btn small">✏️ Edit Profile</button>
+        </div>
+
+        <!-- Edit Form (No password fields) -->
+        <form id="profile-form" style="display:none;">
+          <label>Shop Name</label>
+          <input type="text" id="editShopName">
+          <label>Admin Name</label>
+          <input type="text" id="editAdminName">
+          <label>Email</label>
+          <input type="email" id="editAdminEmail">
+          <label>Opening Date</label>
+          <input type="date" id="editOpeningDate">
+          <label>Birthdate</label>
+          <input type="date" id="editBirthDate">
+          <label>Contact</label>
+          <input type="text" id="editContact">
+          <div class="form-actions">
+            <button type="submit" class="btn">Update Profile</button>
+            <button type="button" id="cancel-edit" class="btn secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Other tabs placeholders -->
+      <div class="tab-content" id="store"><h2>Store Settings</h2></div>
+      <div class="tab-content" id="inventory"><h2>Inventory Settings</h2></div>
+      <div class="tab-content" id="sales"><h2>Sales</h2></div>
+      <div class="tab-content" id="notifications"><h2>Notifications</h2></div>
+      <div class="tab-content" id="backup"><h2>Backup & Data</h2></div>
+      <div class="tab-content" id="security"><h2>Security</h2></div>
+      <div class="tab-content" id="Developer"><h2>Support / Help</h2></div>
+
+    </div>
+  </div>
+
+  <script src="setting.js"></script>
+</body>
+</html>

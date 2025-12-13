@@ -1,0 +1,196 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1b2a, #1b263b);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #e0e7ff;
+}
+
+.container {
+    background: rgba(15, 23, 42, 0.85);
+    padding: 40px 50px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 900px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #60a5fa;
+    margin-bottom: 25px;
+}
+
+.security-section {
+    margin-bottom: 40px;
+}
+
+.security-section h2 {
+    font-size: 1.5rem;
+    color: #a5b4fc;
+    margin-bottom: 15px;
+}
+
+/* Inputs & Buttons */
+.security-section form input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 15px;
+    border: none;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    transition: all 0.4s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+/* Feedback */
+.password-feedback {
+    margin-top: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* Shake Animation */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-5px);
+    }
+
+    40% {
+        transform: translateX(5px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(36, 52, 71, 0.85);
+    color: #60a5fa;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+    background-color: rgba(96, 165, 250, 0.2);
+}
+
+/* 2FA Toggle */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #22c55e;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+#twoFAStatus {
+    font-weight: 600;
+    color: #f87171;
+}
+
+/* Info Text */
+.info-text {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #a5b4fc;
+}
+
+input:checked+.slider+#twoFAStatus {
+    color: #34d399;
+}

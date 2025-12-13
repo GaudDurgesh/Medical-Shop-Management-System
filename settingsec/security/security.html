@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Settings</title>
+    <link rel="stylesheet" href="security.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Security Settings</h1>
+    </header>
+
+    <!-- Admin Password Change -->
+    <section class="security-section">
+        <h2>Change Admin Password</h2>
+
+        <!-- Old Password Block -->
+        <form id="oldPasswordForm">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" id="oldPassword" placeholder="Enter old password" required>
+            <p id="oldPasswordMessage" class="password-feedback"></p>
+            <button type="submit" class="btn">Verify Old Password</button>
+        </form>
+
+        <!-- New Password Block (Initially disabled) -->
+        <form id="passwordForm">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password" disabled required>
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm new password" disabled required>
+            <p id="passwordMessage" class="password-feedback"></p>
+            <button type="submit" class="btn" disabled>Update Password</button>
+        </form>
+    </section>
+
+    <!-- Two-Factor Authentication -->
+    <section class="security-section">
+        <h2>Two-Factor Authentication</h2>
+        <label class="toggle">
+            <input type="checkbox" id="twoFA">
+            <span class="slider"></span>
+        </label>
+        <span id="twoFAStatus">Disabled</span>
+        <p class="info-text">
+            Two-Factor Authentication adds an extra layer of security. When enabled, login requires a verification code.
+        </p>
+    </section>
+
+    <!-- Failed Login Attempts -->
+    <section class="security-section">
+        <h2>Failed Login Attempts</h2>
+        <table id="loginAttemptsTable">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>IP Address</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamically filled by JS -->
+            </tbody>
+        </table>
+    </section>
+</div>
+
+<script src="security.js"></script>
+</body>
+</html>

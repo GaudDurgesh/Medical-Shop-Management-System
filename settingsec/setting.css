@@ -1,0 +1,355 @@
+:root {
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa7b2;
+  --accent: #6ee7b7;
+  --accent-2: #60a5fa;
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-2: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --radius: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 28px;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, #071021 0%, #07172a 60%);
+  color: #e6eef6;
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #0f1724;
+  padding: 18px 20px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6);
+}
+
+/* Container */
+.container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Sidebar Buttons */
+.settings-sidebar {
+  background: var(--card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6);
+}
+
+.settings-sidebar .tab-buttons {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.settings-sidebar button {
+  padding: 16px 18px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.0));
+  border: none;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-size: 15px;
+}
+
+.settings-sidebar button.active,
+.settings-sidebar button:hover {
+  background: var(--glass-2);
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Scrollbar */
+.settings-sidebar .tab-buttons::-webkit-scrollbar {
+  width: 6px;
+}
+
+.settings-sidebar .tab-buttons::-webkit-scrollbar-thumb {
+  background: rgba(102, 255, 195, 0.3);
+  border-radius: 4px;
+}
+
+.settings-sidebar .tab-buttons::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Content Area */
+.settings-content {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+  animation: fadeInContent 0.5s ease;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Titles */
+.tab-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-2);
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+}
+
+/* Forms */
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  color: #e6eef6;
+  transition: all 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(102, 255, 195, 0.2);
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0f1724;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(102, 255, 195, 0.4);
+}
+
+.btn.secondary {
+  background: linear-gradient(90deg, #ff6b81, #d63031);
+  color: #fff;
+}
+
+.btn.secondary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 99, 132, 0.4);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Profile Display */
+.profile-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--glass);
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 25px;
+  border: 1px solid var(--glass-border);
+  flex-wrap: wrap; /* Ensure it wraps on smaller screens */
+}
+
+.profile-display > div {
+    flex: 1 1 60%; /* Allow info div to take more space */
+    min-width: 250px;
+}
+
+.profile-display p {
+  margin: 0 0 6px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.profile-display button {
+    flex: 0 0 auto; /* Button shouldn't stretch too much */
+    margin-top: 10px;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ======================================= */
+/* RESPONSIVE DESIGN */
+/* ======================================= */
+
+@media (max-width: 900px) {
+  /* Container switches to single column layout */
+  .container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Sidebar becomes horizontal scrollable menu above content */
+  .settings-sidebar {
+    padding: 15px;
+    /* max-height: 80vh; will be removed */
+  }
+
+  .settings-sidebar .tab-buttons {
+    flex-direction: row;
+    overflow-x: auto;
+    max-height: none; /* Remove height constraint */
+    padding-bottom: 5px; /* Add small padding for scrollbar */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+  }
+  
+  /* Hide scrollbar on mobile browsers */
+  .settings-sidebar .tab-buttons::-webkit-scrollbar {
+    height: 4px;
+    background: transparent;
+  }
+
+  .settings-sidebar button {
+    margin-bottom: 0;
+    flex-shrink: 0; /* Buttons should not shrink */
+    padding: 10px 14px;
+    font-size: 14px;
+    transform: none !important;
+  }
+
+  .settings-sidebar button.active {
+    border-bottom: 2px solid var(--accent);
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: var(--glass);
+    color: var(--accent);
+  }
+  
+  .settings-sidebar button:hover {
+      transform: none;
+      color: var(--accent);
+  }
+
+  /* Content adjusts */
+  .settings-content {
+    padding: 20px;
+    max-height: 70vh; /* Keep some height constraint */
+  }
+  
+  /* Profile display on smaller screens */
+  .profile-display {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px;
+  }
+  
+  .profile-display > div {
+      min-width: 100%;
+      margin-bottom: 10px;
+  }
+  
+  .profile-display button {
+      width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 15px 10px;
+    }
+    
+    header {
+        font-size: 18px;
+        padding: 15px 15px;
+    }
+    
+    .settings-content {
+        padding: 15px;
+    }
+    
+    .settings-sidebar button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .tab-content h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

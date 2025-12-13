@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Management - Medical Shop</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="supply-sec.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Supplier Management</h1>
+      <input type="text" id="searchInput" placeholder="Search supplier by name, contact person, phone...">
+      <button id="addSupplierBtn" class="btn">+ Add Supplier</button>
+    </header>
+
+    <main>
+      <table id="supplierTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Contact Person</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Supplier rows will appear here -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Add/Edit Supplier Modal -->
+  <div id="supplierModal" class="modal">
+    <div class="modal-content">
+      <span class="closeBtn">&times;</span>
+      <h2 id="modalTitle">Add Supplier</h2>
+      <form id="supplierForm">
+        <label>Supplier Name:</label>
+        <input type="text" id="supplierName" placeholder="Enter supplier name" required>
+
+        <label>Contact Person:</label>
+        <input type="text" id="contactPerson" placeholder="Enter contact person name" required>
+
+        <label>Phone:</label>
+        <input type="text" id="phone" placeholder="Enter phone number" required>
+
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="Enter email address">
+
+        <label>Address:</label>
+        <textarea id="address" placeholder="Enter complete address" rows="3"></textarea>
+
+        <label>Status:</label>
+        <select id="status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+
+        <button type="submit" class="btn" id="saveBtn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="supply-sec.js"></script>
+</body>
+</html>

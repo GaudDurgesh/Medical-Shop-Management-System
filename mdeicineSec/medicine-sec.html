@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Medicine Inventory - Admin</title>
+  <link rel="stylesheet" href="medicine-sec.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Medicine Inventory</h1>
+      <input type="text" id="searchInput" placeholder="Search by name, category, expiry...">
+      <button id="addMedicineBtn" class="btn">+ Add Medicine</button>
+    </header>
+
+    <main>
+      <table id="medicineTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Expiry</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Medicine rows will appear here -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Add/Edit Medicine Modal -->
+  <div id="medicineModal" class="modal">
+    <div class="modal-content">
+      <span class="closeBtn" title="Close">&times;</span>
+      <h2 id="modalTitle">Add Medicine</h2>
+      <form id="medicineForm" novalidate>
+        <label for="medName">Name:</label>
+        <input type="text" id="medName" placeholder="Enter medicine name" required>
+
+        <label for="medCategory">Category:</label>
+        <input type="text" id="medCategory" placeholder="Enter category" required>
+
+        <label for="medPrice">Price (₹):</label>
+        <input type="number" id="medPrice" placeholder="Enter price" min="0" required>
+
+        <label for="medStock">Stock:</label>
+        <input type="number" id="medStock" placeholder="Enter stock" min="0" required>
+
+        <label for="medExpiry">Expiry:</label>
+        <input type="date" id="medExpiry" required>
+
+        <!-- NEW: Batch number (always visible inside modal for add & edit) -->
+        <label for="medBatch">Batch Number:</label>
+        <input type="text" id="medBatch" placeholder="Enter batch number (e.g., B12345)" required>
+
+        <button type="submit" class="btn" id="saveBtn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="medicine-sec.js"></script>
+</body>
+</html>

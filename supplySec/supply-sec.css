@@ -1,0 +1,656 @@
+/* Reset & theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f1724, #1b263b);
+  color: #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(20px);
+  padding: 40px 50px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 1200px;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  animation: fadeIn 0.7s ease forwards;
+}
+
+/* Header */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #60a5fa;
+  text-shadow: 0 3px 10px rgba(96, 165, 250, 0.5);
+}
+
+header input[type="text"] {
+  padding: 12px 16px;
+  margin: 5px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+}
+
+header input[type="text"]:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.6), inset 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+header input[type="text"]::placeholder {
+  color: #9aa7b2;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 15px;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  box-shadow: 0 8px 25px rgba(3, 105, 161, 0.7);
+  transition: all 0.4s ease;
+  font-size: 14px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(3, 105, 161, 0.9);
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: #f1f5f9;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+th,
+td {
+  padding: 16px 20px;
+  text-align: left;
+}
+
+th {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: #60a5fa;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid rgba(96, 165, 250, 0.3);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+tbody tr:hover {
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.1), rgba(96, 165, 250, 0.05));
+  transform: translateY(-1px);
+}
+
+/* Enhanced supplier styling */
+.supplier-name {
+  font-weight: 600;
+  color: #e2e8f0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.inactive-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.7em;
+  font-weight: 600;
+  margin-left: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-person {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.phone-link, .email-link {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.phone-link:hover, .email-link:hover {
+  color: #3b82f6;
+  background: rgba(96, 165, 250, 0.1);
+  text-decoration: none;
+}
+
+.no-data {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.address {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #cbd5e1;
+}
+
+/* Status badge styling */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.status-badge.active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.status-badge.inactive {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+}
+
+/* Enhanced row styling */
+.inactive-row {
+  background: linear-gradient(90deg, rgba(107, 114, 128, 0.1), rgba(107, 114, 128, 0.05)) !important;
+  opacity: 0.7;
+}
+
+.inactive-row:hover {
+  background: linear-gradient(90deg, rgba(107, 114, 128, 0.15), rgba(107, 114, 128, 0.08)) !important;
+}
+
+/* Action buttons */
+.actions {
+  white-space: nowrap;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-edit, .btn-delete, .btn-activate, .btn-deactivate {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  opacity: 1;
+}
+
+.btn-activate:hover {
+  background: linear-gradient(135deg, #10b981, #059669);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  opacity: 1;
+}
+
+.btn-deactivate:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+  opacity: 1;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+  opacity: 1;
+}
+
+tbody tr:hover .btn-edit,
+tbody tr:hover .btn-delete,
+tbody tr:hover .btn-activate,
+tbody tr:hover .btn-deactivate {
+  opacity: 1;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.3s ease forwards;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+  backdrop-filter: blur(20px);
+  margin: 5% auto;
+  padding: 40px;
+  border-radius: 25px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.closeBtn {
+  color: #9aa7b2;
+  float: right;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  /* transition: all 0.2s ease; */
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  color: #60a5fa;
+  /* transform: rotate(90deg); */
+}
+
+#modalTitle {
+  color: #60a5fa;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+}
+
+form label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 15px; /* Added spacing */
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f1f5f9;
+  font-size: 15px;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 20px rgba(96, 165, 250, 0.4), inset 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+form input::placeholder, form textarea::placeholder {
+  color: #64748b;
+}
+
+form .btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================================= */
+/* NOTIFICATIONS AND LOADING (SHIFTED FROM JS) */
+/* ======================================= */
+/* Enhanced notification styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    color: white;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.notification-message {
+    flex: 1;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.notification-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Loading indicator */
+#loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
+    font-weight: 500;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(96, 165, 250, 0.3);
+    border-top: 2px solid #60a5fa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ======================================= */
+/* RESPONSIVE DESIGN (Enhanced for Mobile) */
+/* ======================================= */
+
+@media (max-width: 992px) {
+  /* Hide columns on medium screens to keep table readable */
+  table thead tr th:nth-child(4), /* Email */
+  table tbody tr td:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 25px;
+    margin: 20px 10px;
+  }
+  
+  header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  header input[type="text"] {
+    min-width: auto;
+    margin-bottom: 10px;
+  }
+
+  /* Table styles for Card View */
+  #supplierTable {
+    border: none;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  #supplierTable thead {
+    display: none; /* Hide original headers */
+  }
+
+  #supplierTable tbody,
+  #supplierTable tr,
+  #supplierTable td {
+    display: block; /* Make everything stack vertically */
+    width: 100%;
+  }
+
+  #supplierTable tr {
+    margin-bottom: 20px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 15px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+    padding: 15px;
+  }
+
+  #supplierTable tr:hover {
+      transform: none;
+      background: linear-gradient(90deg, rgba(96, 165, 250, 0.1), rgba(96, 165, 250, 0.05));
+  }
+  
+  /* Remove hidden columns and set new padding/positioning */
+  #supplierTable thead th:nth-child(4),
+  #supplierTable tbody td:nth-child(4) {
+    display: block; /* Re-enable for card view, pseudo-label will define content */
+  }
+  
+  #supplierTable td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: right;
+    padding: 10px 0;
+    position: relative;
+    padding-left: 50%; /* Space for the pseudo-label */
+    font-size: 0.9em;
+  }
+  
+  #supplierTable td:last-child {
+    border-bottom: 0;
+    text-align: left;
+    padding-left: 0;
+    margin-top: 10px;
+  }
+
+  /* Pseudo-elements for labels */
+  #supplierTable td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+    color: #60a5fa;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+  
+  /* Alignment fixes for content within cells */
+  .supplier-name, .contact-person, .phone-link, .email-link, .status-badge {
+      display: block;
+      text-align: right;
+  }
+  
+  .address {
+      white-space: normal; /* Allow address to wrap */
+      max-width: 100%;
+      text-align: right;
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 5px;
+  }
+  
+  .modal-content {
+    margin: 10% auto;
+    padding: 30px 25px;
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .notification {
+    min-width: unset;
+    left: 10px;
+    right: 10px;
+  }
+
+  body {
+    padding: 20px 10px;
+  }
+  
+  .container {
+    padding: 20px 15px;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  /* Further adjustments for tiny screens */
+  #supplierTable td {
+    padding-left: 55%;
+  }
+
+  #supplierTable td::before {
+    width: 50%;
+  }
+  
+  form input, form select, form textarea {
+      padding: 12px 15px;
+      font-size: 14px;
+  }
+  
+  form .btn {
+      padding: 14px;
+      font-size: 15px;
+  }
+}

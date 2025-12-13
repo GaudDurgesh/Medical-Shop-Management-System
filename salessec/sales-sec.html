@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sales & Billing - Medical Shop</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="sales-sec.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Sales & Billing</h1>
+      <div class="header-controls">
+        <input type="text" id="searchInput" placeholder="Search by invoice, customer name, phone..." />
+        <button id="newSaleBtn" class="btn">+ New Sale</button>
+      </div>
+    </header>
+
+    <main>
+      <table id="salesTable">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Employee</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sales rows will appear here -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- New Sale Modal -->
+  <div id="saleModal" class="modal" aria-hidden="true">
+    <div class="modal-content large" role="dialog" aria-modal="true" aria-labelledby="saleModalTitle">
+      <button class="closeBtn" aria-label="Close modal">&times;</button>
+      <h2 id="saleModalTitle">New Sale</h2>
+
+      <form id="saleForm" novalidate>
+        <section class="customer-info">
+          <h3>Customer Information</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="customerName">Customer Name</label>
+              <input type="text" id="customerName" placeholder="Enter customer name (optional)" />
+            </div>
+
+            <div class="form-group">
+              <label for="customerPhone">Phone</label>
+              <input type="text" id="customerPhone" placeholder="Enter phone number (optional)" maxlength="15" />
+            </div>
+          </div>
+        </section>
+
+        <section class="sale-items">
+          <div class="sale-items-header">
+            <h3>Items</h3>
+            <div class="items-actions">
+              <button type="button" id="addItemBtn" class="btn btn-small">+ Add Item</button>
+            </div>
+          </div>
+
+          <div id="saleItems" class="sale-items-list" aria-live="polite">
+            <!-- Sale items will be added here by JS -->
+          </div>
+        </section>
+
+        <section class="sale-summary">
+          <h3>Summary</h3>
+          <div class="summary-grid">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span id="subtotal">₹0.00</span>
+            </div>
+
+            <div class="form-group inline">
+              <label for="discount">Discount (₹)</label>
+              <input type="number" id="discount" placeholder="0" min="0" step="0.01" />
+            </div>
+
+            <div class="summary-row total">
+              <span>Final Amount:</span>
+              <span id="finalAmount">₹0.00</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="payment-info">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="paymentMethod">Payment Method</label>
+              <select id="paymentMethod" required>
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="upi">UPI</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="employeeId">Employee</label>
+              <select id="employeeId">
+                <!-- Employee options will be populated by JS -->
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Complete Sale</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="sales-sec.js"></script>
+</body>
+</html>

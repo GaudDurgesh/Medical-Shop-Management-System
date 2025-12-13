@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Management - Medical Shop</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="stylesheet" href="emp-section.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Employee Management</h1>
+      <input type="text" id="searchInput" placeholder="Search employee by ID, Name, Email...">
+      <button id="addEmployeeBtn" class="btn">+ Add Employee</button>
+    </header>
+
+    <main>
+      <table id="employeeTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Employee rows will appear here -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Add/Edit Employee Modal -->
+  <div id="employeeModal" class="modal">
+    <div class="modal-content">
+      <span class="closeBtn">&times;</span>
+      <h2 id="modalTitle">Add Employee</h2>
+      <form id="employeeForm">
+        <label>ID:</label>
+        <input type="text" id="employeeId" placeholder="EMP001" required>
+
+        <label>Name:</label>
+        <input type="text" id="name" placeholder="Enter employee name" required>
+
+        <label>Position:</label>
+        <input type="text" id="position" placeholder="Enter position" required>
+
+        <label>Phone:</label>
+        <input type="text" id="phone" placeholder="Enter phone number" required>
+
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="Enter email" >
+
+        <label>Salary:</label>
+        <input type="number" id="salary" placeholder="Enter salary">
+
+        <label>Hire Date:</label>
+        <input type="date" id="hireDate">
+
+        <label>Status:</label>
+        <select id="statusSelect">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+
+        <button type="submit" class="btn" id="saveBtn">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="emp-section.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicine Expiry Notifications</title>
+    <link rel="stylesheet" href="notification.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Medicine Expiry Notifications</h1>
+        <input type="text" id="search" placeholder="Search medicine...">
+    </header>
+
+    <table id="medTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Medicine Name</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be injected by JS -->
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal" id="medModal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <h2>Edit Medicine</h2>
+            <form id="medForm">
+                <label for="medName">Medicine Name</label>
+                <input type="text" id="medName" required>
+                <label for="expiryDate">Expiry Date</label>
+                <input type="date" id="expiryDate" required>
+                <button type="submit" class="btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="notification.js"></script>
+</body>
+</html>

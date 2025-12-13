@@ -1,0 +1,276 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1b2a, #1b263b);
+    color: #e0e7ff;
+    transition: background 0.3s;
+}
+
+/* Admin Container */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 260px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 0 25px 25px 0;
+}
+
+.admin-sidebar .logo {
+    font-weight: 800;
+    font-size: 22px;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #60a5fa;
+    text-shadow: 0 3px 10px rgba(96, 165, 250, 0.5);
+}
+
+.admin-sidebar ul {
+    list-style: none;
+}
+
+.admin-sidebar ul li {
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.admin-sidebar ul li.active,
+.admin-sidebar ul li:hover {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    box-shadow: 0 8px 20px rgba(3, 105, 161, 0.7);
+    transform: translateX(5px);
+}
+
+/* Main Content */
+.admin-content {
+    flex: 1;
+    padding: 35px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    overflow-y: auto;
+    border-radius: 25px;
+    margin: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.7s ease forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Headings */
+h2 {
+    margin-bottom: 25px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+    padding-bottom: 10px;
+    color: #60a5fa;
+    text-shadow: 0 2px 6px rgba(96, 165, 250, 0.4);
+}
+
+/* Info Display Card - Glassmorphism */
+.info-display {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.info-display:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 45px rgba(3, 105, 161, 0.7);
+}
+
+.info-display p {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #f1f5f9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.edit-btn,
+.save-btn,
+.cancel-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 12px;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(3, 105, 161, 0.7);
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: #fff;
+}
+
+.edit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(3, 105, 161, 0.9);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: #fff;
+    margin-right: 10px;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.7);
+}
+
+.save-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.9);
+}
+
+.cancel-btn {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.7);
+}
+
+.cancel-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.9);
+}
+
+/* Edit Form */
+.edit-form {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.edit-form.visible {
+    max-height: 900px;
+    opacity: 1;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 18px;
+}
+
+input[type=text],
+input[type=email],
+input[type=tel],
+input[type=time],
+textarea,
+input[type=color] {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+    font-size: 15px;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.6), inset 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Form Buttons Container */
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Color Box Display */
+.color-box {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media(max-width:768px) {
+    .admin-container {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        border-radius: 25px 25px 0 0;
+    }
+
+    .admin-sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .admin-sidebar ul li {
+        flex-shrink: 0;
+    }
+
+    .admin-content {
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,177 @@
+/* Base styling following your theme */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1b2a, #1b263b);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: #e0e7ff;
+    padding: 40px 20px;
+}
+
+.container {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #60a5fa;
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+header input[type="text"] {
+    padding: 12px 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 15px;
+    border: none;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    box-shadow: 0 8px 25px rgba(3, 105, 161, 0.7);
+    transition: all 0.4s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(3, 105, 161, 0.9);
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(36, 52, 71, 0.85);
+    color: #60a5fa;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+    background-color: rgba(96, 165, 250, 0.2);
+}
+
+td button {
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+td button.restore {
+    background: linear-gradient(135deg, #22c55e, #10b981);
+    color: #fff;
+}
+
+td button.restore:hover {
+    background: linear-gradient(135deg, #10b981, #22c55e);
+}
+
+td button.delete {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: #fff;
+}
+
+td button.delete:hover {
+    background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background: rgba(15, 23, 42, 0.95);
+    margin: 80px auto;
+    padding: 30px 40px;
+    border-radius: 25px;
+    width: 400px;
+    position: relative;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.closeBtn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.closeBtn:hover {
+    color: #fff;
+}
+
+form label {
+    display: block;
+    margin-top: 15px;
+    color: #a5b4fc;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 15px;
+    margin-top: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+}

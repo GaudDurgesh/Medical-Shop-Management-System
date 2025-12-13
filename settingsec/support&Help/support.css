@@ -1,0 +1,113 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0d1b2a, #1b263b);
+    color: #e0e7ff;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    color: #60a5fa;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1rem;
+    color: #a5b4fc;
+    line-height: 1.6;
+}
+
+/* Contact Options Grid */
+.contact-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.contact-card {
+    background: rgba(36, 52, 71, 0.85);
+    padding: 25px 20px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(96, 165, 250, 0.4);
+}
+
+.contact-card i {
+    margin-bottom: 15px;
+    color: #60a5fa;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover i {
+    color: #06b6d4;
+}
+
+.contact-card h3 {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.contact-card p {
+    font-size: 0.9rem;
+    color: #a5b4fc;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-contact {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-contact:hover {
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #a5b4fc;
+    font-size: 0.9rem;
+}

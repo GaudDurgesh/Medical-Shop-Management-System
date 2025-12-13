@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Store Settings</title>
+  <link rel="stylesheet" href="store-sec.css">
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="logo">MEDICARE ADMIN</div>
+      <ul>
+        <li class="tab active" data-tab="basic-info">📝 Basic Info</li>
+        <li class="tab" data-tab="business-hours">⏰ Business Hours</li>
+        <li class="tab" data-tab="payment-options">💳 Payment Options</li>
+        <li class="tab" data-tab="tax-branding">📄 Tax & Branding</li>
+        <li class="tab" data-tab="license">📜 License</li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+      <!-- Basic Info -->
+      <div class="tab-content active" id="basic-info">
+        <h2>Basic Information</h2>
+        <div class="info-display">
+          <p><strong>Store Name:</strong> <span id="disp-store-name">Medicare Pharmacy</span></p>
+          <p><strong>Owner Name:</strong> <span id="disp-owner-name">John Doe</span></p>
+          <p><strong>Phone:</strong> <span id="disp-phone">+91 9876543210</span></p>
+          <p><strong>Email:</strong> <span id="disp-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97f6f3fafef9d7faf2f3fef4f6e5f2b9f4f8fa">[email&#160;protected]</a></span></p>
+          <p><strong>Address:</strong> <span id="disp-address">123 Main Street, Delhi</span></p>
+        </div>
+        <button class="edit-btn">Edit Basic Info</button>
+
+        <form class="edit-form hidden">
+          <div class="form-group">
+            <label>Store Name</label>
+            <input type="text" id="store-name" placeholder="Enter store name">
+          </div>
+          <div class="form-group">
+            <label>Owner Name</label>
+            <input type="text" id="owner-name" placeholder="Enter owner name">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="phone" placeholder="Enter phone number">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <textarea id="address" placeholder="Enter address"></textarea>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Business Hours -->
+      <div class="tab-content" id="business-hours">
+        <h2>Business Hours</h2>
+        <div class="info-display">
+          <p><strong>Opening Time:</strong> <span id="disp-open-time">09:00 AM</span></p>
+          <p><strong>Closing Time:</strong> <span id="disp-close-time">09:00 PM</span></p>
+          <p><strong>Holidays:</strong> <span id="disp-holidays">Sunday</span></p>
+        </div>
+        <button class="edit-btn">Edit Business Hours</button>
+
+        <form class="edit-form hidden">
+          <div class="form-group">
+            <label>Opening Time</label>
+            <input type="time" id="open-time">
+          </div>
+          <div class="form-group">
+            <label>Closing Time</label>
+            <input type="time" id="close-time">
+          </div>
+          <div class="form-group">
+            <label>Holidays</label>
+            <input type="text" id="holidays" placeholder="Enter holidays">
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Payment Options -->
+      <div class="tab-content" id="payment-options">
+        <h2>Payment Options</h2>
+        <div class="info-display">
+          <p><strong>Accepted Payments:</strong> <span id="disp-payments">Cash, Card, UPI</span></p>
+        </div>
+        <button class="edit-btn">Edit Payment Options</button>
+
+        <form class="edit-form hidden">
+          <div class="form-group">
+            <label><input type="checkbox" value="Cash" class="payment"> Cash</label>
+            <label><input type="checkbox" value="Card" class="payment"> Card</label>
+            <label><input type="checkbox" value="UPI" class="payment"> UPI</label>
+            <label><input type="checkbox" value="Wallets" class="payment"> Wallets</label>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tax & Branding -->
+      <div class="tab-content" id="tax-branding">
+        <h2>Tax & Branding</h2>
+        <div class="info-display">
+          <p><strong>GST Number:</strong> <span id="disp-gst">27ABCDE1234F1Z5</span></p>
+          <p><strong>HSN Codes:</strong> <span id="disp-hsn">300490</span></p>
+          <p><strong>Theme Color:</strong> 
+            <span id="disp-color" class="color-box" style="background:#3b82f6;"></span>
+          </p>
+        </div>
+        <button class="edit-btn">Edit Tax & Branding</button>
+
+        <form class="edit-form hidden">
+          <div class="form-group">
+            <label>GST Number</label>
+            <input type="text" id="gst" placeholder="Enter GST Number">
+          </div>
+          <div class="form-group">
+            <label>HSN Codes</label>
+            <input type="text" id="hsn" placeholder="Enter HSN Codes">
+          </div>
+          <div class="form-group">
+            <label>Theme Color</label>
+            <input type="color" id="color">
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- License -->
+      <div class="tab-content" id="license">
+        <h2>License Information</h2>
+        <div class="info-display">
+          <p><strong>License Number:</strong> <span id="disp-license-number">LIC1234567890</span></p>
+          <p><strong>Issue Date:</strong> <span id="disp-license-issue">01-Jan-2025</span></p>
+          <p><strong>Expiry Date:</strong> <span id="disp-license-expiry">31-Dec-2030</span></p>
+        </div>
+        <button class="edit-btn">Edit License Info</button>
+
+        <form class="edit-form hidden">
+          <div class="form-group">
+            <label>License Number</label>
+            <input type="text" id="license-number" placeholder="Enter license number">
+          </div>
+          <div class="form-group">
+            <label>Issue Date</label>
+            <input type="date" id="license-issue">
+          </div>
+          <div class="form-group">
+            <label>Expiry Date</label>
+            <input type="date" id="license-expiry">
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="store-sec.js"></script>
+</body>
+</html>

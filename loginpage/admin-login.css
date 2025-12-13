@@ -1,0 +1,184 @@
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  /* Use min-height instead of fixed height for better responsiveness */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #004e92, #000428);
+  /* Added padding for very small screens, prevents content touching edges */
+  padding: 20px;
+}
+
+.login-container {
+  /* Max width set, so it scales down on smaller devices */
+  width: 100%;
+  max-width: 400px; /* Maximum width 400px rakha gaya hai */
+  
+  background: #ffffff10;
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  animation: fadeIn 1s ease-in-out;
+  
+  /* Added flex properties to vertically center content if needed */
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px; /* Thoda zyada margin */
+  font-size: 1.8rem;
+  color: #00e0ff;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #e0f7fa;
+}
+
+.input-group input {
+  width: 100%;
+  /* Padding adjusted slightly for better input area */
+  padding: 12px 15px; 
+  padding-right: 40px; /* Space for the potential toggle-password icon */
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #ffffff20;
+  color: #fff;
+  font-size: 15px;
+  transition: background 0.3s;
+}
+
+.input-group input:focus {
+    background: #ffffff30;
+    box-shadow: 0 0 8px rgba(0, 224, 255, 0.5);
+}
+
+.input-group input::placeholder {
+  color: #b2ebf2;
+}
+
+/* Toggle password icon ki position update ki hai, jisse yeh har input size par sahi rahe */
+.input-group .toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%; /* Top se 50% */
+  transform: translateY(10px); /* Label height (35px) aur input padding ko adjust karne ke liye */
+  cursor: pointer;
+  color: #00e0ff;
+  font-size: 16px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px; /* Padding badhaya for easier click on mobile */
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px; /* Font size badhaya */
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 10px; /* Button ke upar thoda space */
+}
+
+.login-btn:hover {
+  background: #008c9e;
+  transform: scale(1.02);
+}
+
+.error-msg {
+  color: #ff5252;
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px; /* Padding for better visibility */
+  background: rgba(255, 82, 82, 0.1);
+  border-radius: 8px;
+  display: none;
+}
+
+.success-msg {
+  color: #00e676;
+  text-align: center;
+  font-size: 15px;
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(0, 230, 118, 0.1);
+  border-radius: 8px;
+  display: none;
+}
+
+footer {
+  text-align: center;
+  color: #b2ebf2;
+  margin-top: 25px; /* Footer ko thoda neeche kiya */
+  font-size: 13px;
+}
+
+.success-msg,
+.error-msg {
+  animation: fadeInMsg 0.5s ease-in-out;
+}
+
+@keyframes fadeInMsg {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----- Media Query for Very Small Phones (e.g., width less than 350px) ----- */
+@media (max-width: 450px) {
+  .login-container {
+    padding: 30px 20px; /* Side padding kam kiya */
+    margin: 10px; /* Ensure space around the container */
+  }
+
+  .login-container h2 {
+    font-size: 1.6rem;
+  }
+  
+  .login-btn {
+    padding: 12px;
+    font-size: 16px;
+  }
+}

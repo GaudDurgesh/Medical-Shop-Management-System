@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Settings</title>
+  <link rel="stylesheet" href="inventory-sec.css">
+</head>
+<body>
+  <div class="admin-container">
+    
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="logo">MediStore</div>
+      <ul>
+        <li class="active">Inventory Settings</li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+      <header class="page-header">
+        <h2>Inventory Settings</h2>
+        <button class="edit-btn" id="editBtn">Edit Info</button>
+      </header>
+
+      <!-- Info Display -->
+      <div class="info-display" id="inventoryInfo">
+        <p><strong>Low Stock Alert:</strong> <span id="lowStockText">Enabled (Threshold: 10)</span></p>
+        <p><strong>Expiry Alerts:</strong> <span id="expiryAlertText">Enabled (30 Days Before)</span></p>
+      </div>
+
+      <!-- API Section -->
+      <div class="api-section">
+        <h3>Live Inventory Data</h3>
+        <ul id="inventoryData">Loading medicines...</ul>
+      </div>
+    </main>
+
+    <!-- Right Section: Owner Card -->
+    <aside class="owner-card">
+  <div class="owner-logo">MEDICAL</div>
+  <h3 class="owner-name">Durgesh Medicos</h3>
+  <p class="owner-role">Owner</p>
+</aside>
+
+  </div>
+
+  <!-- Centered Modal for Editing -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Edit Inventory Settings</h3>
+      <form id="inventoryForm">
+        <div class="form-group">
+          <label for="lowStock">Low Stock Threshold</label>
+          <input type="number" id="lowStock" value="10" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="expiryDays">Expiry Alert (Days Before)</label>
+          <input type="number" id="expiryDays" value="30" min="1">
+        </div>
+
+        <div class="form-buttons">
+          <button type="button" class="save-btn" id="saveBtn">Save</button>
+          <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="inventory.js"></script>
+</body>
+</html>

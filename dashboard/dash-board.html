@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Medical Shop Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="dash-board.css">
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">MS</div>
+        <div>
+          <h3>MEDICAL</h3>
+          <p class="muted">Admin Dashboard</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a class="active" href="#"><span class="icon">🏠</span> Dashboard</a>
+        <a href="/mdeicineSec/medicine-sec.html"><span class="icon">💊</span> Medicines</a>
+        <a href="/empSection/emp-section.html"><span class="icon">🧑‍⚕️</span> Employees</a>
+        <a href="/supplySec/supply-sec.html"><span class="icon">📦</span> Suppliers</a>
+        <a href="/salesSec/sales-sec.html"><span class="icon">📈</span> Sales / Billing</a>
+
+        <!-- 
+        <a href="/settingSec/setting.html"><span class="icon">⚙️</span> Settings</a>
+        -->
+        <a id="settings-link" href="#"><span class="icon">⚙️</span> Settings</a>
+      </nav>
+
+      <!-- 
+      <div class="quick-stats">
+        <div class="stat">
+          <div>
+            <strong id="total-sales">₹24.5k</strong>
+            <p>Sales Today</p>
+          </div>
+          <div class="muted">▲ 8%</div>
+        </div>
+        <div class="stat">
+          <div>
+            <strong id="low-stock-count">6</strong>
+            <p>Low stock items</p>
+          </div>
+          <div class="muted">⚠</div>
+        </div>
+        <div class="stat">
+          <div>
+            <strong id="expiring-count">3</strong>
+            <p>Expiring soon</p>
+          </div>
+          <div class="muted">📅</div>
+        </div>
+      </div> -->
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="icon-muted">
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <input id="search" placeholder="Search medicines, employees, invoice..." />
+        </div>
+        <div class="actions">
+          <button class="btn sale-btn" onclick="openNewSale()">+ New Sale</button>
+          <div class="profile">
+            <div class="avatar">DG</div>
+            <div class="profile-text">
+              <div class="owner-name">Durgesh</div>
+              <div class="owner-role">Owner</div>
+            </div>
+          </div>
+        </div>
+        <!-- <nav>
+          <button id="logout-btn">Logout</button>
+        </nav> -->
+      </div>       
+      
+      <section class="grid">
+        <div class="card">
+          <h4>Today's Revenue</h4>
+          <div class="metric">₹<span id="today-rev">24,512</span></div>
+          <div class="small">Compared to yesterday <span class="muted">+8%</span></div>
+        </div>
+        <div class="card">
+          <h4>Total Inventory Value</h4>
+          <div class="metric">₹<span id="inventory-val">1,24,800</span></div>
+          <div class="small">In stock across categories</div>
+        </div>
+        <!-- <div class="card">
+          <h4>Pending Orders</h4>
+          <div class="metric"><span id="pending-orders">4</span></div>
+          <div class="small">Orders waiting for confirmation</div>
+        </div> -->
+      </section>
+
+      <section class="layout">
+        <div>
+          <div class="card">
+            <h4>Sales (last 7 days)</h4>
+            <canvas id="salesChart" height="120"></canvas>
+          </div>
+
+          <div class="card">
+            <h4>Medicine Stock</h4>
+            <div class="medicine-stock">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicine</th>
+                    <th>Batch</th>
+                    <th>Stock</th>
+                    <th>Expiry</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody id="med-table">
+                  <!-- rows injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="widget">
+            <h4>Alerts</h4>
+            <ul id="alerts"></ul>
+          </div>
+
+          <div class="widget">
+            <h4>Quick Actions</h4>
+            <div class="quick-action">
+              <button id="addMedicineBtn" class="btn btn-1">+ Add Medicine</button>
+              <button id="addEmpBtn" class="btn btn-2">+ Add Employee</button>
+              <button id="exportStock" class="btn btn-3">Export stock (CSV)</button>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <!-- Popup for settings -->
+  <div id="settings-popup" class="settings-popup hidden">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closeSettingsPopup()">×</button>
+      <span class="popup-icon">⚙️</span>
+      <p>Settings coming soon</p>
+    </div>
+  </div>
+
+  <script src="dash-board.js"></script>
+</body>
+
+</html>
