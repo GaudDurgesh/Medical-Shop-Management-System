@@ -1,16 +1,18 @@
 import mysql from "mysql2";
 
+const caCertificate = process.env.DB_CA
+  ? process.env.DB_CA.replace(/\\n/g, "\n").trim()
+  : undefined;
+
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+
   ssl: {
-    rejectUnauthorized: true,
-  },
-  ssl: {
-    ca: process.env.DB_CA,
+    ca: caCertificate,
     rejectUnauthorized: true,
   },
 });
@@ -22,6 +24,5 @@ db.connect((err) => {
     console.log("✅ MySQL connected successfully!");
   }
 });
-
 
 export default db;
