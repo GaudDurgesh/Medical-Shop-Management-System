@@ -4,7 +4,7 @@ const caCertificate = process.env.DB_CA
   ? process.env.DB_CA.replace(/\\n/g, "\n").trim()
   : undefined;
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST?.trim(),
   port: Number(process.env.DB_PORT?.trim()),
   user: process.env.DB_USER?.trim(),
@@ -15,13 +15,19 @@ const db = mysql.createConnection({
     ca: caCertificate,
     rejectUnauthorized: true,
   },
+
+  waitForConnections: true,
+  connectionLimit: 5,
+  queueLimit: 0,
+  enableKeepAlive: true,
 });
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
   if (err) {
-    console.error("❌ Database connection failed:", err.message || err);
+    console.error("❌ Database pool connection failed:", err.message || err);
   } else {
-    console.log("✅ MySQL connected successfully!");
+    console.log("✅ MySQL pool connected successfully!");
+    connection.release();
   }
 });
 
