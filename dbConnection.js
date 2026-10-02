@@ -9,6 +9,10 @@ const db = mysql.createConnection({
   ssl: {
     rejectUnauthorized: true,
   },
+  ssl: {
+    ca: process.env.DB_CA,
+    rejectUnauthorized: true,
+  },
 });
 
 db.connect((err) => {
@@ -18,5 +22,6 @@ db.connect((err) => {
     console.log("✅ MySQL connected successfully!");
   }
 });
+
 
 export default db;
