@@ -1,23 +1,19 @@
 import mysql from "mysql2";
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Test",     // <-- update if your MySQL password is different
-  database: "medical_shop_new",
-  // port: 3306           // uncomment & change if you use a non-standard port
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: {
+    rejectUnauthorized: true,
+  },
 });
 
 db.connect((err) => {
   if (err) {
     console.error("❌ Database connection failed:", err.message || err);
-    console.error("Please check:");
-    console.error("1. MySQL server is running");
-    console.error("2. Database 'medical_shop_new' exists");
-    console.error("3. Username and password are correct");
-    console.error("4. Host and port are accessible");
-    // exit process? (optional)
-    // process.exit(1);
   } else {
     console.log("✅ MySQL connected successfully!");
   }
