@@ -618,7 +618,7 @@ app.get("/api/sales/:id", (req, res) => {
 });
 
 // Create new sale
-app.post("/api/sales", (req, res) => {
+app.post("/api/sales", async (req, res) => {
   const {
     customer_name,
     customer_phone,
@@ -634,11 +634,10 @@ app.post("/api/sales", (req, res) => {
       .json({ success: false, message: "At least one item is required" });
   }
 
-  // Generate invoice number
   const invoice_number = `INV${Date.now()}`;
 
-  // Calculate totals
   let total_amount = 0;
+
   items.forEach((item) => {
     total_amount +=
       (Number(item.quantity) || 0) * (Number(item.unit_price) || 0);
@@ -647,111 +646,104 @@ app.post("/api/sales", (req, res) => {
   const discount_amount = Number(discount) || 0;
   const final_amount = total_amount - discount_amount;
 
-  // Start transaction
-  db.beginTransaction((err) => {
-    if (err) {
-      console.error("Transaction error:", err);
-      return res
-        .status(500)
-        .json({ success: false, message: "Transaction failed" });
-    }
+  let connection;
 
-    const saleSql = `INSERT INTO sales (invoice_number, customer_name, customer_phone, 
-                     total_amount, discount, final_amount, payment_method, employee_id) 
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  try {
+    connection = await db.promise().getConnection();
 
-    db.query(
-      saleSql,
-      [
+    await connection.beginTransaction();
+
+    const saleSql = `
+      INSERT INTO sales (
         invoice_number,
         customer_name,
         customer_phone,
         total_amount,
-        discount_amount,
+        discount,
         final_amount,
         payment_method,
-        employee_id,
-      ],
-      (err, saleResult) => {
-        if (err) {
-          return db.rollback(() => {
-            console.error("Error inserting sale:", err);
-            res
-              .status(500)
-              .json({ success: false, message: "Failed to create sale" });
-          });
-        }
+        employee_id
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-        const sale_id = saleResult.insertId;
+    const [saleResult] = await connection.query(saleSql, [
+      invoice_number,
+      customer_name,
+      customer_phone,
+      total_amount,
+      discount_amount,
+      final_amount,
+      payment_method,
+      employee_id,
+    ]);
 
-        // Insert sale items and update stock
-        let completed = 0;
-        let hasError = false;
+    const sale_id = saleResult.insertId;
 
-        items.forEach((item) => {
-          const itemSql = `INSERT INTO sale_items (sale_id, medicine_id, quantity, unit_price, total_price) 
-                         VALUES (?, ?, ?, ?, ?)`;
+    for (const item of items) {
+      const qty = Number(item.quantity) || 0;
+      const unitPrice = Number(item.unit_price) || 0;
+      const totalPrice = qty * unitPrice;
 
-          const qty = Number(item.quantity) || 0;
-          const unitPrice = Number(item.unit_price) || 0;
-          const totalPrice = qty * unitPrice;
+      const itemSql = `
+        INSERT INTO sale_items (
+          sale_id,
+          medicine_id,
+          quantity,
+          unit_price,
+          total_price
+        )
+        VALUES (?, ?, ?, ?, ?)
+      `;
 
-          db.query(
-            itemSql,
-            [sale_id, item.medicine_id, qty, unitPrice, totalPrice],
-            (err) => {
-              if (err && !hasError) {
-                hasError = true;
-                return db.rollback(() => {
-                  console.error("Error inserting sale item:", err);
-                  res.status(500).json({
-                    success: false,
-                    message: "Failed to add sale items",
-                  });
-                });
-              }
+      await connection.query(itemSql, [
+        sale_id,
+        item.medicine_id,
+        qty,
+        unitPrice,
+        totalPrice,
+      ]);
 
-              const updateStockSql = `UPDATE medicines SET stock_quantity = stock_quantity - ? WHERE id = ?`;
-              db.query(updateStockSql, [qty, item.medicine_id], (err) => {
-                if (err && !hasError) {
-                  hasError = true;
-                  return db.rollback(() => {
-                    console.error("Error updating stock:", err);
-                    res.status(500).json({
-                      success: false,
-                      message: "Failed to update stock",
-                    });
-                  });
-                }
+      const updateStockSql = `
+        UPDATE medicines
+        SET stock_quantity = stock_quantity - ?
+        WHERE id = ?
+      `;
 
-                completed++;
-                if (completed === items.length && !hasError) {
-                  db.commit((err) => {
-                    if (err) {
-                      return db.rollback(() => {
-                        console.error("Commit error:", err);
-                        res.status(500).json({
-                          success: false,
-                          message: "Transaction commit failed",
-                        });
-                      });
-                    }
+      await connection.query(updateStockSql, [
+        qty,
+        item.medicine_id,
+      ]);
+    }
 
-                    res.json({
-                      success: true,
-                      message: "Sale created successfully",
-                      sale_id: sale_id,
-                      invoice_number: invoice_number,
-                    });
-                  });
-                }
-              });
-            },
-          );
-        });
-      },
-    );
-  });
+    await connection.commit();
+
+    res.json({
+      success: true,
+      message: "Sale created successfully",
+      sale_id,
+      invoice_number,
+    });
+  } catch (err) {
+    if (connection) {
+      try {
+        await connection.rollback();
+      } catch (rollbackError) {
+        console.error("Rollback error:", rollbackError);
+      }
+    }
+
+    console.error("Create sale error:", err);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to create sale",
+    });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
 });
 
 app.delete("/api/sales/:id", (req, res) => {
