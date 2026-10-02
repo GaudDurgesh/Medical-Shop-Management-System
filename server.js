@@ -710,10 +710,7 @@ app.post("/api/sales", async (req, res) => {
         WHERE id = ?
       `;
 
-      await connection.query(updateStockSql, [
-        qty,
-        item.medicine_id,
-      ]);
+      await connection.query(updateStockSql, [qty, item.medicine_id]);
     }
 
     await connection.commit();
@@ -746,109 +743,74 @@ app.post("/api/sales", async (req, res) => {
   }
 });
 
-app.delete("/api/sales/:id", (req, res) => {
+app.delete("/api/sales/:id", async (req, res) => {
   const { id } = req.params;
 
-  db.beginTransaction((err) => {
-    if (err) {
-      console.error("Transaction start error:", err);
-      return res.status(500).json({
+  let connection;
+
+  try {
+    connection = await db.promise().getConnection();
+
+    await connection.beginTransaction();
+
+    const [saleData] = await connection.query(
+      "SELECT id FROM sales WHERE id = ?",
+      [id],
+    );
+
+    if (saleData.length === 0) {
+      await connection.rollback();
+
+      return res.status(404).json({
         success: false,
-        message: "Transaction failed",
+        message: "Sale not found",
       });
     }
 
-    // Step 1: Check sale exists
-    db.query("SELECT id FROM sales WHERE id = ?", [id], (err, saleData) => {
-      if (err) {
-        return db.rollback(() => {
-          console.error("Sale check error:", err);
-          res.status(500).json({
-            success: false,
-            message: "Failed to check sale",
-          });
-        });
-      }
+    const restoreStockSql = `
+      UPDATE medicines m
+      JOIN (
+        SELECT medicine_id, SUM(quantity) AS qty
+        FROM sale_items
+        WHERE sale_id = ?
+        GROUP BY medicine_id
+      ) si ON m.id = si.medicine_id
+      SET m.stock_quantity = m.stock_quantity + si.qty
+    `;
 
-      if (saleData.length === 0) {
-        return db.rollback(() => {
-          res.status(404).json({
-            success: false,
-            message: "Sale not found",
-          });
-        });
-      }
+    await connection.query(restoreStockSql, [id]);
 
-      // Step 2: Restore sold medicines stock
-      const restoreStockSql = `
-          UPDATE medicines m
-          JOIN (
-            SELECT medicine_id, SUM(quantity) AS qty
-            FROM sale_items
-            WHERE sale_id = ?
-            GROUP BY medicine_id
-          ) si ON m.id = si.medicine_id
-          SET m.stock_quantity = m.stock_quantity + si.qty
-        `;
+    await connection.query("DELETE FROM sale_items WHERE sale_id = ?", [id]);
 
-      db.query(restoreStockSql, [id], (err) => {
-        if (err) {
-          return db.rollback(() => {
-            console.error("Stock restore error:", err);
-            res.status(500).json({
-              success: false,
-              message: "Failed to restore stock",
-            });
-          });
-        }
+    await connection.query("DELETE FROM sales WHERE id = ?", [id]);
 
-        // Step 3: Delete sale items
-        db.query("DELETE FROM sale_items WHERE sale_id = ?", [id], (err) => {
-          if (err) {
-            return db.rollback(() => {
-              console.error("Sale items delete error:", err);
-              res.status(500).json({
-                success: false,
-                message: "Failed to delete sale items",
-              });
-            });
-          }
+    await connection.commit();
 
-          // Step 4: Delete sale
-          db.query("DELETE FROM sales WHERE id = ?", [id], (err, result) => {
-            if (err) {
-              return db.rollback(() => {
-                console.error("Sale delete error:", err);
-                res.status(500).json({
-                  success: false,
-                  message: "Failed to delete sale",
-                });
-              });
-            }
-
-            db.commit((err) => {
-              if (err) {
-                return db.rollback(() => {
-                  console.error("Commit error:", err);
-                  res.status(500).json({
-                    success: false,
-                    message: "Failed to commit delete",
-                  });
-                });
-              }
-
-              res.json({
-                success: true,
-                message: "Sale deleted successfully",
-              });
-            });
-          });
-        });
-      });
+    res.json({
+      success: true,
+      message: "Sale deleted successfully",
     });
-  });
-});
+  } catch (err) {
+    if (connection) {
+      try {
+        await connection.rollback();
+      } catch (rollbackError) {
+        console.error("Rollback error:", rollbackError);
+      }
+    }
 
+    console.error("Delete sale error:", err);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete sale",
+    });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+});
 
 /* ===========================
    📊 DASHBOARD & ANALYTICS APIs
