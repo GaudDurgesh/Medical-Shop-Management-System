@@ -1,5 +1,5 @@
 // emp-section.js — full, robust, salary-enabled, supplier-styled logic
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 let employees = [];
 let editingEmployeeId = null;

@@ -16,10 +16,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files (adjust folder if your static files live elsewhere)
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "loginPage", "adminLogin.html"));
+  res.redirect("/loginpage/admin-login.html");
 });
 
 /* ===========================
@@ -31,10 +31,13 @@ app.post("/login", (req, res) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return res.status(400).json({ success: false, message: "All fields required!" });
+    return res
+      .status(400)
+      .json({ success: false, message: "All fields required!" });
   }
 
-  const sql = "SELECT * FROM admin WHERE username = ? AND email = ? AND password = ?";
+  const sql =
+    "SELECT * FROM admin WHERE username = ? AND email = ? AND password = ?";
   db.query(sql, [username, email, password], (err, result) => {
     if (err) {
       console.error("Query error:", err);
@@ -67,7 +70,9 @@ app.get("/api/medicines", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching medicines:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch medicines" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch medicines" });
     }
     res.json({ success: true, data });
   });
@@ -75,10 +80,13 @@ app.get("/api/medicines", (req, res) => {
 
 // Add new medicine
 app.post("/api/medicines", (req, res) => {
-  const { name, category, price, stock, expiry, batch_number, supplier_id } = req.body;
+  const { name, category, price, stock, expiry, batch_number, supplier_id } =
+    req.body;
 
   if (!name || !category || !price || !stock || !expiry) {
-    return res.status(400).json({ success: false, message: "All required fields must be filled" });
+    return res
+      .status(400)
+      .json({ success: false, message: "All required fields must be filled" });
   }
 
   const sql = `INSERT INTO medicines (name, category, price, stock_quantity, expiry_date, batch_number, supplier_id) 
@@ -86,37 +94,60 @@ app.post("/api/medicines", (req, res) => {
 
   db.query(
     sql,
-    [name, category, price, stock, expiry, batch_number || null, supplier_id || null],
+    [
+      name,
+      category,
+      price,
+      stock,
+      expiry,
+      batch_number || null,
+      supplier_id || null,
+    ],
     (err, result) => {
       if (err) {
         console.error("Error adding medicine:", err);
-        return res.status(500).json({ success: false, message: "Failed to add medicine" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to add medicine" });
       }
-      res.json({ success: true, message: "Medicine added successfully", id: result.insertId });
-    }
+      res.json({
+        success: true,
+        message: "Medicine added successfully",
+        id: result.insertId,
+      });
+    },
   );
 });
 
 // Update medicine
 app.put("/api/medicines/:id", (req, res) => {
   const { id } = req.params;
-  const { name, category, price, stock, expiry, batch_number, supplier_id } = req.body;
+  const { name, category, price, stock, expiry, batch_number, supplier_id } =
+    req.body;
 
   const sql = `UPDATE medicines SET name=?, category=?, price=?, stock_quantity=?, 
                expiry_date=?, batch_number=?, supplier_id=?, updated_at=NOW() WHERE id=?`;
 
-  db.query(sql, [name, category, price, stock, expiry, batch_number, supplier_id, id], (err, result) => {
-    if (err) {
-      console.error("Error updating medicine:", err);
-      return res.status(500).json({ success: false, message: "Failed to update medicine" });
-    }
+  db.query(
+    sql,
+    [name, category, price, stock, expiry, batch_number, supplier_id, id],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating medicine:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to update medicine" });
+      }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Medicine not found" });
-    }
+      if (result.affectedRows === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Medicine not found" });
+      }
 
-    res.json({ success: true, message: "Medicine updated successfully" });
-  });
+      res.json({ success: true, message: "Medicine updated successfully" });
+    },
+  );
 });
 
 // Delete medicine
@@ -127,11 +158,15 @@ app.delete("/api/medicines/:id", (req, res) => {
   db.query(sql, [id], (err, result) => {
     if (err) {
       console.error("Error deleting medicine:", err);
-      return res.status(500).json({ success: false, message: "Failed to delete medicine" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to delete medicine" });
     }
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Medicine not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Medicine not found" });
     }
 
     res.json({ success: true, message: "Medicine deleted successfully" });
@@ -146,7 +181,10 @@ app.get("/api/medicines/low-stock", (req, res) => {
   db.query(sql, [threshold], (err, data) => {
     if (err) {
       console.error("Error fetching low stock medicines:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch low stock medicines" });
+      return res.status(500).json({
+        success: false,
+        message: "Failed to fetch low stock medicines",
+      });
     }
     res.json({ success: true, data });
   });
@@ -161,7 +199,10 @@ app.get("/api/medicines/expiring", (req, res) => {
   db.query(sql, [days], (err, data) => {
     if (err) {
       console.error("Error fetching expiring medicines:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch expiring medicines" });
+      return res.status(500).json({
+        success: false,
+        message: "Failed to fetch expiring medicines",
+      });
     }
     res.json({ success: true, data });
   });
@@ -180,7 +221,9 @@ app.get("/api/employees", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching employees:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch employees" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch employees" });
     }
     res.json({ success: true, data });
   });
@@ -188,10 +231,13 @@ app.get("/api/employees", (req, res) => {
 
 // Add new employee
 app.post("/api/employees", (req, res) => {
-  const { employee_id, name, position, phone, email, salary, hire_date } = req.body;
+  const { employee_id, name, position, phone, email, salary, hire_date } =
+    req.body;
 
   if (!employee_id || !name || !position || !phone || !email) {
-    return res.status(400).json({ success: false, message: "All required fields must be filled" });
+    return res
+      .status(400)
+      .json({ success: false, message: "All required fields must be filled" });
   }
 
   // Check if employee_id already exists
@@ -199,11 +245,15 @@ app.post("/api/employees", (req, res) => {
   db.query(checkSql, [employee_id], (err, existing) => {
     if (err) {
       console.error("Error checking employee ID:", err);
-      return res.status(500).json({ success: false, message: "Database error" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Database error" });
     }
 
     if (existing.length > 0) {
-      return res.status(400).json({ success: false, message: "Employee ID already exists" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Employee ID already exists" });
     }
 
     const sql = `INSERT INTO employees (employee_id, name, position, phone, email, salary, hire_date) 
@@ -211,14 +261,28 @@ app.post("/api/employees", (req, res) => {
 
     db.query(
       sql,
-      [employee_id, name, position, phone, email, salary || null, hire_date || new Date()],
+      [
+        employee_id,
+        name,
+        position,
+        phone,
+        email,
+        salary || null,
+        hire_date || new Date(),
+      ],
       (err, result) => {
         if (err) {
           console.error("Error adding employee:", err);
-          return res.status(500).json({ success: false, message: "Failed to add employee" });
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to add employee" });
         }
-        res.json({ success: true, message: "Employee added successfully", id: result.insertId });
-      }
+        res.json({
+          success: true,
+          message: "Employee added successfully",
+          id: result.insertId,
+        });
+      },
     );
   });
 });
@@ -226,23 +290,32 @@ app.post("/api/employees", (req, res) => {
 // Update employee
 app.put("/api/employees/:id", (req, res) => {
   const { id } = req.params;
-  const { employee_id, name, position, phone, email, salary, status } = req.body;
+  const { employee_id, name, position, phone, email, salary, status } =
+    req.body;
 
   const sql = `UPDATE employees SET employee_id=?, name=?, position=?, phone=?, 
                email=?, salary=?, status=?, updated_at=NOW() WHERE id=?`;
 
-  db.query(sql, [employee_id, name, position, phone, email, salary, status || "active", id], (err, result) => {
-    if (err) {
-      console.error("Error updating employee:", err);
-      return res.status(500).json({ success: false, message: "Failed to update employee" });
-    }
+  db.query(
+    sql,
+    [employee_id, name, position, phone, email, salary, status || "active", id],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating employee:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to update employee" });
+      }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Employee not found" });
-    }
+      if (result.affectedRows === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Employee not found" });
+      }
 
-    res.json({ success: true, message: "Employee updated successfully" });
-  });
+      res.json({ success: true, message: "Employee updated successfully" });
+    },
+  );
 });
 
 // Delete employee - FIXED: Now handles both deactivation and permanent deletion
@@ -255,44 +328,64 @@ app.delete("/api/employees/:id", (req, res) => {
   db.query(checkSql, [id], (err, result) => {
     if (err) {
       console.error("Error checking employee status:", err);
-      return res.status(500).json({ success: false, message: "Failed to check employee status" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to check employee status" });
     }
 
     if (result.length === 0) {
-      return res.status(404).json({ success: false, message: "Employee not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Employee not found" });
     }
 
     const employee = result[0];
 
     // If permanent deletion is requested OR employee is already inactive, delete permanently
-    if (permanent === 'true' || employee.status === 'inactive') {
+    if (permanent === "true" || employee.status === "inactive") {
       const deleteSql = "DELETE FROM employees WHERE id = ?";
       db.query(deleteSql, [id], (err, result) => {
         if (err) {
           console.error("Error permanently deleting employee:", err);
-          return res.status(500).json({ success: false, message: "Failed to permanently delete employee" });
+          return res.status(500).json({
+            success: false,
+            message: "Failed to permanently delete employee",
+          });
         }
 
         if (result.affectedRows === 0) {
-          return res.status(404).json({ success: false, message: "Employee not found" });
+          return res
+            .status(404)
+            .json({ success: false, message: "Employee not found" });
         }
 
-        res.json({ success: true, message: "Employee permanently deleted successfully" });
+        res.json({
+          success: true,
+          message: "Employee permanently deleted successfully",
+        });
       });
     } else {
       // If employee is active, just deactivate them
-      const deactivateSql = "UPDATE employees SET status='inactive', updated_at=NOW() WHERE id=?";
+      const deactivateSql =
+        "UPDATE employees SET status='inactive', updated_at=NOW() WHERE id=?";
       db.query(deactivateSql, [id], (err, result) => {
         if (err) {
           console.error("Error deactivating employee:", err);
-          return res.status(500).json({ success: false, message: "Failed to deactivate employee" });
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to deactivate employee" });
         }
 
         if (result.affectedRows === 0) {
-          return res.status(404).json({ success: false, message: "Employee not found" });
+          return res
+            .status(404)
+            .json({ success: false, message: "Employee not found" });
         }
 
-        res.json({ success: true, message: "Employee deactivated successfully" });
+        res.json({
+          success: true,
+          message: "Employee deactivated successfully",
+        });
       });
     }
   });
@@ -311,7 +404,9 @@ app.get("/api/suppliers", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching suppliers:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch suppliers" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch suppliers" });
     }
     res.json({ success: true, data });
   });
@@ -322,19 +417,32 @@ app.post("/api/suppliers", (req, res) => {
   const { name, contact_person, phone, email, address } = req.body;
 
   if (!name || !contact_person || !phone) {
-    return res.status(400).json({ success: false, message: "Name, contact person, and phone are required" });
+    return res.status(400).json({
+      success: false,
+      message: "Name, contact person, and phone are required",
+    });
   }
 
   const sql = `INSERT INTO suppliers (name, contact_person, phone, email, address) 
                VALUES (?, ?, ?, ?, ?)`;
 
-  db.query(sql, [name, contact_person, phone, email || null, address || null], (err, result) => {
-    if (err) {
-      console.error("Error adding supplier:", err);
-      return res.status(500).json({ success: false, message: "Failed to add supplier" });
-    }
-    res.json({ success: true, message: "Supplier added successfully", id: result.insertId });
-  });
+  db.query(
+    sql,
+    [name, contact_person, phone, email || null, address || null],
+    (err, result) => {
+      if (err) {
+        console.error("Error adding supplier:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to add supplier" });
+      }
+      res.json({
+        success: true,
+        message: "Supplier added successfully",
+        id: result.insertId,
+      });
+    },
+  );
 });
 
 // Update supplier
@@ -345,33 +453,46 @@ app.put("/api/suppliers/:id", (req, res) => {
   const sql = `UPDATE suppliers SET name=?, contact_person=?, phone=?, email=?, 
                address=?, status=?, updated_at=NOW() WHERE id=?`;
 
-  db.query(sql, [name, contact_person, phone, email, address, status || "active", id], (err, result) => {
-    if (err) {
-      console.error("Error updating supplier:", err);
-      return res.status(500).json({ success: false, message: "Failed to update supplier" });
-    }
+  db.query(
+    sql,
+    [name, contact_person, phone, email, address, status || "active", id],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating supplier:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to update supplier" });
+      }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Supplier not found" });
-    }
+      if (result.affectedRows === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Supplier not found" });
+      }
 
-    res.json({ success: true, message: "Supplier updated successfully" });
-  });
+      res.json({ success: true, message: "Supplier updated successfully" });
+    },
+  );
 });
 
 // Deactivate supplier (soft delete)
 app.put("/api/suppliers/:id/deactivate", (req, res) => {
   const { id } = req.params;
 
-  const sql = "UPDATE suppliers SET status='inactive', updated_at=NOW() WHERE id=?";
+  const sql =
+    "UPDATE suppliers SET status='inactive', updated_at=NOW() WHERE id=?";
   db.query(sql, [id], (err, result) => {
     if (err) {
       console.error("Error deactivating supplier:", err);
-      return res.status(500).json({ success: false, message: "Failed to deactivate supplier" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to deactivate supplier" });
     }
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Supplier not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Supplier not found" });
     }
 
     res.json({ success: true, message: "Supplier deactivated successfully" });
@@ -383,18 +504,22 @@ app.delete("/api/suppliers/:id", (req, res) => {
   const { id } = req.params;
 
   // First check if supplier has any associated medicines
-  const checkSql = "SELECT COUNT(*) as count FROM medicines WHERE supplier_id = ?";
+  const checkSql =
+    "SELECT COUNT(*) as count FROM medicines WHERE supplier_id = ?";
   db.query(checkSql, [id], (err, result) => {
     if (err) {
       console.error("Error checking supplier dependencies:", err);
-      return res.status(500).json({ success: false, message: "Failed to check supplier dependencies" });
+      return res.status(500).json({
+        success: false,
+        message: "Failed to check supplier dependencies",
+      });
     }
 
     const medicineCount = result[0].count;
     if (medicineCount > 0) {
-      return res.status(400).json({ 
-        success: false, 
-        message: `Cannot delete supplier. ${medicineCount} medicines are associated with this supplier. Please reassign or delete those medicines first.` 
+      return res.status(400).json({
+        success: false,
+        message: `Cannot delete supplier. ${medicineCount} medicines are associated with this supplier. Please reassign or delete those medicines first.`,
       });
     }
 
@@ -403,14 +528,21 @@ app.delete("/api/suppliers/:id", (req, res) => {
     db.query(deleteSql, [id], (err, result) => {
       if (err) {
         console.error("Error deleting supplier:", err);
-        return res.status(500).json({ success: false, message: "Failed to delete supplier" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to delete supplier" });
       }
 
       if (result.affectedRows === 0) {
-        return res.status(404).json({ success: false, message: "Supplier not found" });
+        return res
+          .status(404)
+          .json({ success: false, message: "Supplier not found" });
       }
 
-      res.json({ success: true, message: "Supplier permanently deleted successfully" });
+      res.json({
+        success: true,
+        message: "Supplier permanently deleted successfully",
+      });
     });
   });
 });
@@ -432,7 +564,9 @@ app.get("/api/sales", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching sales:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch sales" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch sales" });
     }
     res.json({ success: true, data });
   });
@@ -455,23 +589,29 @@ app.get("/api/sales/:id", (req, res) => {
   db.query(saleSql, [id], (err, saleData) => {
     if (err) {
       console.error("Error fetching sale:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch sale" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch sale" });
     }
 
     if (!saleData || saleData.length === 0) {
-      return res.status(404).json({ success: false, message: "Sale not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Sale not found" });
     }
 
     db.query(itemsSql, [id], (err, itemsData) => {
       if (err) {
         console.error("Error fetching sale items:", err);
-        return res.status(500).json({ success: false, message: "Failed to fetch sale items" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to fetch sale items" });
       }
 
       res.json({
         success: true,
         sale: saleData[0],
-        items: itemsData
+        items: itemsData,
       });
     });
   });
@@ -479,10 +619,19 @@ app.get("/api/sales/:id", (req, res) => {
 
 // Create new sale
 app.post("/api/sales", (req, res) => {
-  const { customer_name, customer_phone, items, discount, payment_method, employee_id } = req.body;
+  const {
+    customer_name,
+    customer_phone,
+    items,
+    discount,
+    payment_method,
+    employee_id,
+  } = req.body;
 
   if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ success: false, message: "At least one item is required" });
+    return res
+      .status(400)
+      .json({ success: false, message: "At least one item is required" });
   }
 
   // Generate invoice number
@@ -490,8 +639,9 @@ app.post("/api/sales", (req, res) => {
 
   // Calculate totals
   let total_amount = 0;
-  items.forEach(item => {
-    total_amount += (Number(item.quantity) || 0) * (Number(item.unit_price) || 0);
+  items.forEach((item) => {
+    total_amount +=
+      (Number(item.quantity) || 0) * (Number(item.unit_price) || 0);
   });
 
   const discount_amount = Number(discount) || 0;
@@ -501,79 +651,212 @@ app.post("/api/sales", (req, res) => {
   db.beginTransaction((err) => {
     if (err) {
       console.error("Transaction error:", err);
-      return res.status(500).json({ success: false, message: "Transaction failed" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Transaction failed" });
     }
 
     const saleSql = `INSERT INTO sales (invoice_number, customer_name, customer_phone, 
                      total_amount, discount, final_amount, payment_method, employee_id) 
                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    db.query(saleSql, [invoice_number, customer_name, customer_phone, total_amount,
-      discount_amount, final_amount, payment_method, employee_id], (err, saleResult) => {
-      if (err) {
-        return db.rollback(() => {
-          console.error("Error inserting sale:", err);
-          res.status(500).json({ success: false, message: "Failed to create sale" });
-        });
-      }
+    db.query(
+      saleSql,
+      [
+        invoice_number,
+        customer_name,
+        customer_phone,
+        total_amount,
+        discount_amount,
+        final_amount,
+        payment_method,
+        employee_id,
+      ],
+      (err, saleResult) => {
+        if (err) {
+          return db.rollback(() => {
+            console.error("Error inserting sale:", err);
+            res
+              .status(500)
+              .json({ success: false, message: "Failed to create sale" });
+          });
+        }
 
-      const sale_id = saleResult.insertId;
+        const sale_id = saleResult.insertId;
 
-      // Insert sale items and update stock
-      let completed = 0;
-      let hasError = false;
+        // Insert sale items and update stock
+        let completed = 0;
+        let hasError = false;
 
-      items.forEach((item) => {
-        const itemSql = `INSERT INTO sale_items (sale_id, medicine_id, quantity, unit_price, total_price) 
+        items.forEach((item) => {
+          const itemSql = `INSERT INTO sale_items (sale_id, medicine_id, quantity, unit_price, total_price) 
                          VALUES (?, ?, ?, ?, ?)`;
 
-        const qty = Number(item.quantity) || 0;
-        const unitPrice = Number(item.unit_price) || 0;
-        const totalPrice = qty * unitPrice;
+          const qty = Number(item.quantity) || 0;
+          const unitPrice = Number(item.unit_price) || 0;
+          const totalPrice = qty * unitPrice;
 
-        db.query(itemSql, [sale_id, item.medicine_id, qty, unitPrice, totalPrice], (err) => {
-          if (err && !hasError) {
-            hasError = true;
-            return db.rollback(() => {
-              console.error("Error inserting sale item:", err);
-              res.status(500).json({ success: false, message: "Failed to add sale items" });
-            });
-          }
+          db.query(
+            itemSql,
+            [sale_id, item.medicine_id, qty, unitPrice, totalPrice],
+            (err) => {
+              if (err && !hasError) {
+                hasError = true;
+                return db.rollback(() => {
+                  console.error("Error inserting sale item:", err);
+                  res.status(500).json({
+                    success: false,
+                    message: "Failed to add sale items",
+                  });
+                });
+              }
 
-          const updateStockSql = `UPDATE medicines SET stock_quantity = stock_quantity - ? WHERE id = ?`;
-          db.query(updateStockSql, [qty, item.medicine_id], (err) => {
-            if (err && !hasError) {
-              hasError = true;
-              return db.rollback(() => {
-                console.error("Error updating stock:", err);
-                res.status(500).json({ success: false, message: "Failed to update stock" });
-              });
-            }
-
-            completed++;
-            if (completed === items.length && !hasError) {
-              db.commit((err) => {
-                if (err) {
+              const updateStockSql = `UPDATE medicines SET stock_quantity = stock_quantity - ? WHERE id = ?`;
+              db.query(updateStockSql, [qty, item.medicine_id], (err) => {
+                if (err && !hasError) {
+                  hasError = true;
                   return db.rollback(() => {
-                    console.error("Commit error:", err);
-                    res.status(500).json({ success: false, message: "Transaction commit failed" });
+                    console.error("Error updating stock:", err);
+                    res.status(500).json({
+                      success: false,
+                      message: "Failed to update stock",
+                    });
                   });
                 }
 
-                res.json({
-                  success: true,
-                  message: "Sale created successfully",
-                  sale_id: sale_id,
-                  invoice_number: invoice_number
+                completed++;
+                if (completed === items.length && !hasError) {
+                  db.commit((err) => {
+                    if (err) {
+                      return db.rollback(() => {
+                        console.error("Commit error:", err);
+                        res.status(500).json({
+                          success: false,
+                          message: "Transaction commit failed",
+                        });
+                      });
+                    }
+
+                    res.json({
+                      success: true,
+                      message: "Sale created successfully",
+                      sale_id: sale_id,
+                      invoice_number: invoice_number,
+                    });
+                  });
+                }
+              });
+            },
+          );
+        });
+      },
+    );
+  });
+});
+
+app.delete("/api/sales/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.beginTransaction((err) => {
+    if (err) {
+      console.error("Transaction start error:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Transaction failed",
+      });
+    }
+
+    // Step 1: Check sale exists
+    db.query("SELECT id FROM sales WHERE id = ?", [id], (err, saleData) => {
+      if (err) {
+        return db.rollback(() => {
+          console.error("Sale check error:", err);
+          res.status(500).json({
+            success: false,
+            message: "Failed to check sale",
+          });
+        });
+      }
+
+      if (saleData.length === 0) {
+        return db.rollback(() => {
+          res.status(404).json({
+            success: false,
+            message: "Sale not found",
+          });
+        });
+      }
+
+      // Step 2: Restore sold medicines stock
+      const restoreStockSql = `
+          UPDATE medicines m
+          JOIN (
+            SELECT medicine_id, SUM(quantity) AS qty
+            FROM sale_items
+            WHERE sale_id = ?
+            GROUP BY medicine_id
+          ) si ON m.id = si.medicine_id
+          SET m.stock_quantity = m.stock_quantity + si.qty
+        `;
+
+      db.query(restoreStockSql, [id], (err) => {
+        if (err) {
+          return db.rollback(() => {
+            console.error("Stock restore error:", err);
+            res.status(500).json({
+              success: false,
+              message: "Failed to restore stock",
+            });
+          });
+        }
+
+        // Step 3: Delete sale items
+        db.query("DELETE FROM sale_items WHERE sale_id = ?", [id], (err) => {
+          if (err) {
+            return db.rollback(() => {
+              console.error("Sale items delete error:", err);
+              res.status(500).json({
+                success: false,
+                message: "Failed to delete sale items",
+              });
+            });
+          }
+
+          // Step 4: Delete sale
+          db.query("DELETE FROM sales WHERE id = ?", [id], (err, result) => {
+            if (err) {
+              return db.rollback(() => {
+                console.error("Sale delete error:", err);
+                res.status(500).json({
+                  success: false,
+                  message: "Failed to delete sale",
                 });
               });
             }
+
+            db.commit((err) => {
+              if (err) {
+                return db.rollback(() => {
+                  console.error("Commit error:", err);
+                  res.status(500).json({
+                    success: false,
+                    message: "Failed to commit delete",
+                  });
+                });
+              }
+
+              res.json({
+                success: true,
+                message: "Sale deleted successfully",
+              });
+            });
           });
         });
       });
     });
   });
 });
+
 
 /* ===========================
    📊 DASHBOARD & ANALYTICS APIs
@@ -588,7 +871,7 @@ app.get("/api/dashboard/stats", (req, res) => {
     totalInventoryValue: `SELECT COALESCE(SUM(price * stock_quantity), 0) as value FROM medicines WHERE status = 'active'`,
     pendingOrders: `SELECT COUNT(*) as count FROM sales WHERE payment_method = 'pending'`,
     lowStockCount: `SELECT COUNT(*) as count FROM medicines WHERE stock_quantity <= 10 AND status = 'active'`,
-    expiringCount: `SELECT COUNT(*) as count FROM medicines WHERE expiry_date <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) AND expiry_date >= CURDATE() AND status = 'active'`
+    expiringCount: `SELECT COUNT(*) as count FROM medicines WHERE expiry_date <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) AND expiry_date >= CURDATE() AND status = 'active'`,
   };
 
   const stats = {};
@@ -625,7 +908,9 @@ app.get("/api/dashboard/sales-chart", (req, res) => {
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error fetching sales chart data:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch chart data" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch chart data" });
     }
 
     const result = [];
@@ -634,10 +919,10 @@ app.get("/api/dashboard/sales-chart", (req, res) => {
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split("T")[0];
 
-      const dayData = data.find(d => d.date === dateStr);
+      const dayData = data.find((d) => d.date === dateStr);
       result.push({
         date: dateStr,
-        revenue: dayData ? Number(dayData.revenue) : 0
+        revenue: dayData ? Number(dayData.revenue) : 0,
       });
     }
 
@@ -653,31 +938,37 @@ app.get("/api/dashboard/alerts", (req, res) => {
   db.query(lowStockSql, (err, lowStock) => {
     if (err) {
       console.error("Error fetching low stock alerts:", err);
-      return res.status(500).json({ success: false, message: "Failed to fetch alerts" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Failed to fetch alerts" });
     }
 
     db.query(expiringSql, (err, expiring) => {
       if (err) {
         console.error("Error fetching expiring alerts:", err);
-        return res.status(500).json({ success: false, message: "Failed to fetch alerts" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Failed to fetch alerts" });
       }
 
       const alerts = [];
 
-      lowStock.forEach(item => {
+      lowStock.forEach((item) => {
         alerts.push({
           type: "low_stock",
           message: `${item.name} - Only ${item.stock_quantity} left in stock`,
-          priority: "high"
+          priority: "high",
         });
       });
 
-      expiring.forEach(item => {
-        const daysLeft = Math.ceil((new Date(item.expiry_date) - new Date()) / (1000 * 60 * 60 * 24));
+      expiring.forEach((item) => {
+        const daysLeft = Math.ceil(
+          (new Date(item.expiry_date) - new Date()) / (1000 * 60 * 60 * 24),
+        );
         alerts.push({
           type: "expiring",
           message: `${item.name} expires in ${daysLeft} days`,
-          priority: daysLeft <= 7 ? "high" : "medium"
+          priority: daysLeft <= 7 ? "high" : "medium",
         });
       });
 
@@ -690,7 +981,7 @@ app.get("/api/dashboard/alerts", (req, res) => {
    🚀 START SERVER
    =========================== */
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`🚀 Medical Shop Server running on http://localhost:${PORT}`);
   // console.log("📋 Available endpoints:");

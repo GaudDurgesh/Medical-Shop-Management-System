@@ -1,5 +1,5 @@
 // Dashboard JavaScript
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 let salesChart = null;
 
@@ -334,7 +334,7 @@ async function exportStockToCSV() {
 
 // Open new sale
 function openNewSale() {
-    window.location.href = '/salesSec/sales-sec.html';
+    window.location.href = '/salessec/sales-sec.html';
 }
 
 // Utility functions

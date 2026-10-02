@@ -12,7 +12,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   successMsg.style.display = "none";
 
   try {
-    const response = await fetch("http://localhost:5000/login", {
+    const response = await fetch("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),

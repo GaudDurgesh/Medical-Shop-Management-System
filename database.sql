@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS admin (
 
 -- Insert sample admin (replace with your actual data)
 INSERT IGNORE INTO admin (username, email, password, full_name) VALUES 
-('Durgesh Gaud', 'xyz@gmail.com', 'ownerD45', 'Shop Administrator');
+('Satyam Singh', 'satyam@gmail.com', 'satyam45', 'Satyam Singh');
 
 -- Suppliers table
 CREATE TABLE IF NOT EXISTS suppliers (
@@ -164,24 +164,27 @@ CREATE TABLE IF NOT EXISTS notifications (
 
 -- Sample data for testing
 INSERT IGNORE INTO suppliers (name, contact_person, phone, email, address) VALUES 
-('MediCorp Pharmaceuticals', 'Rajesh Kumar', '9876543210', 'rajesh@medicorp.com', 'Mumbai, Maharashtra'),
-('HealthPlus Distributors', 'Priya Sharma', '9876543211', 'priya@healthplus.com', 'Delhi, India'),
-('PharmaLink Solutions', 'Amit Patel', '9876543212', 'amit@pharmalink.com', 'Ahmedabad, Gujarat');
+('Shree Sai Pharma Distributors', 'Amit Kulkarni', '9876543101', 'amit@shreesaipharma.in', 'Andheri East, Mumbai, Maharashtra'),
+('MediCare Wholesale Agency', 'Neha Patil', '9876543102', 'neha@medicarewholesale.in', 'Shivajinagar, Pune, Maharashtra'),
+('Aarogya Medical Suppliers', 'Rohit Deshmukh', '9876543103', 'rohit@aarogyasuppliers.in', 'Thane West, Maharashtra');
 
 INSERT IGNORE INTO employees (employee_id, name, position, phone, email, salary) VALUES 
-('EMP001', 'Ravi Kumar', 'Pharmacist', '9876543220', 'ravi@medicalshop.com', 35000),
-('EMP002', 'Sunita Devi', 'Sales Assistant', '9876543221', 'sunita@medicalshop.com', 25000),
-('EMP003', 'Mohan Singh', 'Store Manager', '9876543222', 'mohan@medicalshop.com', 40000);
+('EMP001', 'Aman Verma', 'Pharmacist', '9823014501', 'aman.verma@medicalshop.in', 32000),
+('EMP002', 'Priya Patil', 'Sales Assistant', '9823014502', 'priya.patil@medicalshop.in', 24000);
 
 INSERT IGNORE INTO medicines (name, category, price, stock_quantity, expiry_date, batch_number, supplier_id) VALUES 
-('Paracetamol 500mg', 'Pain Relief', 2.50, 500, '2025-12-31', 'PCM001', 1),
-('Amoxicillin 250mg', 'Antibiotic', 15.00, 200, '2025-08-15', 'AMX001', 1),
-('Cetirizine 10mg', 'Antihistamine', 3.00, 300, '2025-10-20', 'CET001', 2),
-('Omeprazole 20mg', 'Antacid', 8.50, 150, '2025-06-30', 'OME001', 2),
-('Aspirin 75mg', 'Blood Thinner', 1.20, 400, '2025-11-15', 'ASP001', 3),
-('Metformin 500mg', 'Diabetes', 5.00, 100, '2025-09-10', 'MET001', 3),
-('Vitamin D3', 'Supplement', 12.00, 80, '2025-07-25', 'VIT001', 1),
-('Cough Syrup', 'Respiratory', 45.00, 50, '2025-05-20', 'COU001', 2);
+('Paracetamol 500mg', 'Pain Relief', 25.00, 180, '2028-03-31', 'PCM2601', 1),
+('Dolo 650mg', 'Fever', 32.00, 140, '2028-01-31', 'DOL2602', 1),
+('Amoxicillin 250mg', 'Antibiotic', 85.00, 70, '2027-11-30', 'AMX2603', 2),
+('Azithromycin 500mg', 'Antibiotic', 110.00, 55, '2028-02-29', 'AZI2604', 2),
+('Cetirizine 10mg', 'Antihistamine', 28.00, 120, '2027-12-31', 'CET2605', 1),
+('Pantoprazole 40mg', 'Antacid', 68.00, 95, '2028-04-30', 'PAN2606', 3),
+('Metformin 500mg', 'Diabetes', 48.00, 110, '2028-05-31', 'MET2607', 3),
+('Vitamin D3 60000 IU', 'Vitamin / Supplement', 95.00, 65, '2028-06-30', 'VIT2608', 1),
+('Cough Syrup 100ml', 'Cough / Cold', 82.00, 45, '2027-10-31', 'COU2609', 2),
+('ORS Powder Sachet', 'ORS', 20.00, 160, '2028-07-31', 'ORS2610', 3),
+('Povidone Iodine Solution 100ml', 'First Aid', 78.00, 35, '2028-03-31', 'PVI2611', 3),
+('Digital Thermometer', 'First Aid', 145.00, 8, '2029-12-31', 'THM2612', 2);
 
 -- Create views for commonly used queries
 CREATE OR REPLACE VIEW low_stock_medicines AS
